@@ -18,7 +18,6 @@ class LandingPage extends StatelessWidget {
           idToken: googleAuth.idToken,
         );
 
-        // Once signed in, return the UserCredential
         await FirebaseAuth.instance
             .signInWithCredential(credential)
             .then((UserCredential? user) {
@@ -28,9 +27,7 @@ class LandingPage extends StatelessWidget {
           );
         });
       }
-      // Handle successful sign-in
     }).catchError((error) {
-      // Handle sign-in error
       print('Sign-in error: $error');
     });
   }
@@ -46,7 +43,7 @@ class LandingPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/logo.png', // Replace with your logo image path
+              'assets/logo.png',
               width: 150,
               height: 150,
             ),

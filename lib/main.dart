@@ -23,10 +23,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Firebase Auth Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(122, 43, 228, 172),
+          seedColor: Color.fromARGB(121, 158, 216, 199),
           brightness: Brightness.dark,
         ),
         useMaterial3: true,

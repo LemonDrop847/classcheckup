@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
                       String id = uid;
                       double attend = subject['curr'] == 0
                           ? 0
-                          : subject['curr'] / subject['total'];
+                          : subject['curr'] / subject['total'] * 100;
                       return SubCard(
                         subname: subname,
                         id: id,

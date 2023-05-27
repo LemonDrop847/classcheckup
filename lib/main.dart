@@ -3,8 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 
-import './pages/landing.dart';
 import './pages/home.dart';
+import './pages/landing.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,11 +22,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Firebase Auth Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color.fromARGB(122, 43, 228, 172),
-          // brightness: Brightness.dark,
+          brightness: Brightness.dark,
         ),
         useMaterial3: true,
       ),
@@ -37,9 +38,13 @@ class MyApp extends StatelessWidget {
             return const CircularProgressIndicator();
           } else {
             if (snapshot.hasData && snapshot.data != null) {
-              return HomePage();
+              return HomePage(
+                uid: _auth.currentUser!.uid,
+              );
             } else {
-              return LandingPage();
+              return LandingPage(
+                uID: _auth.currentUser!.uid,
+              );
             }
           }
         },

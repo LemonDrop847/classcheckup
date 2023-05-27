@@ -2,12 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'home.dart';
+import 'setup.dart';
 
 class LandingPage extends StatelessWidget {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final String uID;
 
-  LandingPage({super.key});
+  LandingPage({super.key, required this.uID});
 
   void _handleSignIn(BuildContext context) {
     _googleSignIn.signIn().then((GoogleSignInAccount? account) async {
@@ -23,7 +24,11 @@ class LandingPage extends StatelessWidget {
             .then((UserCredential? user) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()),
+            MaterialPageRoute(
+              builder: (context) => SetupUser(
+                uid: uID,
+              ),
+            ),
           );
         });
       }

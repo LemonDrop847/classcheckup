@@ -46,7 +46,7 @@ jobs:
             ```
             $(git log --format=%B -n 1 ${{ github.sha }})
             ```
-        
+
       - name: Upload APK
         id: upload_apk
         uses: actions/upload-release-asset@v1
@@ -70,4 +70,4 @@ jobs:
             "https://api.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }}"
 
       - name: Print Latest Commit
-        run: echo "Latest commit: ${{ github.event.head_commit.message }}"
+        run: echo "Latest commit - \${{ github.event.head_commit.message }}"

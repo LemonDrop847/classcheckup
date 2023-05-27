@@ -8,14 +8,12 @@ class Gauge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 300,
-      width: 300,
+    return Expanded(
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(200),
         ),
-        elevation: 20,
+        elevation: 5,
         child: AnimatedRadialGauge(
           builder: (context, child, value) {
             return child!;
@@ -35,23 +33,26 @@ class Gauge extends StatelessWidget {
               background: Color(0xFFDFE2EC),
             ),
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              RadialGaugeLabel(
-                value: value,
-                style: const TextStyle(
-                  fontSize: 50,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RadialGaugeLabel(
+                  value: value,
+                  style: const TextStyle(
+                    fontSize: 50,
+                  ),
                 ),
-              ),
-              const Text(
-                '/100',
-                style: TextStyle(
-                  fontSize: 30,
+                const Text(
+                  '/100',
+                  style: TextStyle(
+                    fontSize: 30,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

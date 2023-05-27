@@ -1,3 +1,4 @@
+import 'package:classcheckup/components/gauge.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/subject.dart';
@@ -18,6 +19,7 @@ class SubCard extends StatelessWidget {
       height: 100,
       width: 100,
       child: Card(
+        color: Theme.of(context).canvasColor,
         child: InkWell(
           onTap: () => Navigator.push(
             context,
@@ -27,11 +29,20 @@ class SubCard extends StatelessWidget {
                       sub: subname,
                     )),
           ),
-          child: Text(
-            subname,
-            style: TextStyle(
-              fontSize: 35,
-            ),
+          child: Column(
+            children: [
+              Expanded(
+                child: Gauge(value: attend),
+              ),
+              Text(
+                subname,
+                style: TextStyle(
+                  fontSize: 30,
+                  // fontFamily: 'Fallscoming',
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                ),
+              ),
+            ],
           ),
         ),
       ),

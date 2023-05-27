@@ -9,45 +9,55 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text('Your Classes'),
       ),
       body: Center(
-        child: SizedBox(
-          width: 300,
-          child: StreamBuilder<DocumentSnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection('users')
-                .doc(uid)
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData && snapshot.data != null) {
-                var userData = snapshot.data!.data() as Map<String, dynamic>?;
-                if (userData != null && userData.containsKey('subjects')) {
-                  List<dynamic> subjectsData =
-                      userData['subjects'] as List<dynamic>;
-                  return ListView.builder(
-                    itemCount: subjectsData.length,
-                    itemBuilder: (context, index) {
-                      var subject = subjectsData[index];
-                      String subname = subject['subname'] as String;
-                      subname = subname.toUpperCase();
-                      String id = uid;
-                      double attend = subject['curr'] == 0
-                          ? 0
-                          : subject['curr'] / subject['total'] * 100;
-                      return SubCard(
-                        subname: subname,
-                        id: id,
-                        attend: attend,
-                      );
-                    },
-                  );
-                }
+        child: StreamBuilder<DocumentSnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('users')
+              .doc(uid)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData && snapshot.data != null) {
+              var userData = snapshot.data!.data() as Map<String, dynamic>?;
+
+              if (userData == null || !userData.containsKey('subjects')) {
+                return const Text('No subjects found.');
               }
-              return const CircularProgressIndicator();
-            },
-          ),
+
+              List<dynamic> subjectsData =
+                  userData['subjects'] as List<dynamic>;
+
+              if (subjectsData.isEmpty) {
+                return const Text('No subjects found.');
+              }
+
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1,
+                ),
+                itemCount: subjectsData.length,
+                itemBuilder: (context, index) {
+                  var subject = subjectsData[index];
+                  String subname = subject['subname'] as String;
+                  subname = subname.toUpperCase();
+                  String id = uid;
+                  double attend = subject['curr'] == 0
+                      ? 0
+                      : subject['curr'] / subject['total'] * 100;
+                  return SubCard(
+                    subname: subname,
+                    id: id,
+                    attend: attend,
+                  );
+                },
+              );
+            }
+            return const CircularProgressIndicator();
+          },
         ),
       ),
     );

@@ -33,6 +33,7 @@ dependencies:
   firebase_core: ^2.13.0
   flutter:
     sdk: flutter
+  gauge_indicator: ^0.3.3
   google_sign_in: ^6.1.1
 
 dev_dependencies:

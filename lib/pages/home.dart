@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import './subject.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -9,13 +10,17 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home Page'),
       ),
-      body: const Center(
-        child: Text(
-          'Hello, World!',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => SubjectPage(
+                      value: 65,
+                      sub: "Random",
+                    )),
           ),
+          child: Text('Subject Test'),
         ),
       ),
     );

@@ -30,6 +30,7 @@ environment:
 dependencies:
   cloud_firestore: ^4.7.1
   cupertino_icons: ^1.0.2
+  curved_labeled_navigation_bar: ^2.0.2
   firebase_auth: ^4.6.1
   firebase_core: ^2.13.0
   flutter:

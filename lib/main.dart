@@ -3,8 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 
-import './pages/home.dart';
-import './pages/landing.dart';
+import 'pages/landing.dart';
+import 'index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
             return const CircularProgressIndicator();
           } else {
             if (snapshot.hasData && snapshot.data != null) {
-              return HomePage(
+              return IndexPage(
                 uid: _auth.currentUser!.uid,
               );
             } else {

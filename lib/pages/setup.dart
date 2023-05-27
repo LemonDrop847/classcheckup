@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'home.dart';
+import '../index.dart';
 
 class SetupUser extends StatefulWidget {
   final String uid;
@@ -50,7 +50,7 @@ class _SetupUserState extends State<SetupUser> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => HomePage(
+              builder: (context) => IndexPage(
                     uid: widget.uid,
                   )),
         );

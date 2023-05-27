@@ -25,7 +25,7 @@ class _SubjectPageState extends State<SubjectPage> {
       ),
       body: Column(
         children: [
-          Gauge(value: widget.value),
+          SizedBox(height: 100, child: Gauge(value: widget.value)),
           Text(widget.sub),
           Text(checkLow() ? 'You are good' : 'Attend more classes')
         ],

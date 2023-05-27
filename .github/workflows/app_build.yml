@@ -1,4 +1,4 @@
-name: Build App
+name: Build and Release App
 
 on:
   push:
@@ -9,51 +9,65 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Init Java
+      - name: Set up Java
         uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
           java-version: '11'
-          
+
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.10.0'
           channel: 'stable'
           cache: true
-      - run: flutter --version
 
       - name: Check out code
         uses: actions/checkout@v3
-      
+
       - name: Get packages
         run: flutter pub get
-        
+
       - name: Build APK
         run: flutter build apk --release
-      
-      - name: Update Release
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v1.0
+          release_name: Release v1.0
+          body: |
+            This is an automated release using GitHub Actions.
+
+            Latest Commit:
+            ```
+            $(git log --format=%B -n 1 ${{ github.sha }})
+            ```
+        
+      - name: Upload APK
+        id: upload_apk
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/app/outputs/flutter-apk/app-release.apk
+          asset_name: app-release.apk
+          asset_content_type: application/octet-stream
+
+      - name: Update Release Description
         id: update_release
         run: |
           LATEST_COMMIT_MESSAGE=$(git log --format=%B -n 1 ${{ github.sha }})
-          RELEASE_ID=$(curl -s -X GET \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/releases/tags/v1.0" | jq '.id')
-          UPLOAD_URL=$(curl -s -X GET \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/releases/${RELEASE_ID}" | jq -r '.upload_url' | sed -e "s/{?name,label}//")
-          UPLOAD_RESPONSE=$(curl -s -X POST \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Content-Type: application/octet-stream" \
-            --data-binary @build/app/outputs/flutter-apk/app-release.apk \
-            "$UPLOAD_URL?name=app-release.apk")
-            UPDATED_DESCRIPTION="{\"body\": \"This is an automated release using Github Actions\n\nLatest Commit:\n\`\`\`\n$LATEST_COMMIT_MESSAGE\n\`\`\`\"}"
+          UPDATED_DESCRIPTION="{\"body\": \"This is an automated release using GitHub Actions\n\nLatest Commit:\n\`\`\`\n$LATEST_COMMIT_MESSAGE\n\`\`\`\"}"
           curl -s -X PATCH \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -d "$UPDATED_DESCRIPTION" \
-            "https://api.github.com/repos/${{ github.repository }}/releases/${RELEASE_ID}"
-          echo "Latest commit: $LATEST_COMMIT_MESSAGE"
+            "https://api.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }}"
+
+      - name: Print Latest Commit
+        run: echo "Latest commit: ${{ github.event.head_commit.message }}"

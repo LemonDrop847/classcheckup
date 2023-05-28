@@ -101,12 +101,13 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void _signOut() async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => LandingPage()),
-      (Route<dynamic> route) => false,
-    );
+    await FirebaseAuth.instance.signOut().then(
+          (value) => Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => LandingPage()),
+            (Route<dynamic> route) => false,
+          ),
+        );
   }
 
   @override

@@ -10,8 +10,10 @@ class DashBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: StreamBuilder<DocumentSnapshot>(
-        stream:
-            FirebaseFirestore.instance.collection('users').doc(uid).snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('subdata')
+            .doc(uid)
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
             var userData = snapshot.data!.data() as Map<String, dynamic>?;
@@ -35,7 +37,7 @@ class DashBoard extends StatelessWidget {
               itemBuilder: (context, index) {
                 var subject = subjectsData[index];
                 String subname = subject['subname'] as String;
-                subname = subname.toUpperCase();
+
                 String id = uid;
                 double attend = subject['curr'] == 0
                     ? 0

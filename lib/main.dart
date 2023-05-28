@@ -41,9 +41,7 @@ class MyApp extends StatelessWidget {
                 uid: _auth.currentUser!.uid,
               );
             } else {
-              return LandingPage(
-                uID: _auth.currentUser!.uid,
-              );
+              return LandingPage();
             }
           }
         },

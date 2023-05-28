@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'setup.dart';
 
 class LandingPage extends StatelessWidget {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final String uID;
 
-  LandingPage({super.key, required this.uID});
+  LandingPage({super.key});
 
   void _handleSignIn(BuildContext context) {
     _googleSignIn.signIn().then((GoogleSignInAccount? account) async {
@@ -19,18 +19,42 @@ class LandingPage extends StatelessWidget {
           idToken: googleAuth.idToken,
         );
 
-        await FirebaseAuth.instance
-            .signInWithCredential(credential)
-            .then((UserCredential? user) {
+        final userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        final user = userCredential.user;
+
+        final userRef =
+            FirebaseFirestore.instance.collection('users').doc(user!.uid);
+        final userDoc = await userRef.get();
+
+        if (userDoc.exists) {
+          // User document already exists, do not modify
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => SetupUser(
-                uid: uID,
+                uid: user.uid,
               ),
             ),
           );
-        });
+        } else {
+          // User document doesn't exist, create a new one
+          await userRef.set({
+            'name': user.displayName,
+            'photoURL': user.photoURL,
+            'email': user.email,
+            // Add other desired fields
+          });
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SetupUser(
+                uid: user.uid,
+              ),
+            ),
+          );
+        }
       }
     }).catchError((error) {
       print('Sign-in error: $error');

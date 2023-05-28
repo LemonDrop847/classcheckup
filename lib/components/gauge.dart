@@ -28,7 +28,7 @@ class Gauge extends StatelessWidget {
           min: 0,
           max: 100,
           style: GaugeAxisStyle(
-            thickness: 20,
+            thickness: 10,
             background: Color(0xFFDFE2EC),
           ),
         ),
@@ -45,7 +45,7 @@ class Gauge extends StatelessWidget {
                 ),
               ),
               const Text(
-                '/100',
+                '%',
                 style: TextStyle(
                   fontSize: 30,
                 ),

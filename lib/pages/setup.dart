@@ -43,7 +43,7 @@ class _SetupUserState extends State<SetupUser> {
         };
       }).toList();
 
-      FirebaseFirestore.instance.collection('users').doc(userId).set({
+      FirebaseFirestore.instance.collection('subdata').doc(userId).set({
         'subjects': subjectsData,
       }).then((value) {
         print('Subjects submitted successfully!');

@@ -33,10 +33,12 @@ dependencies:
   curved_labeled_navigation_bar: ^2.0.2
   firebase_auth: ^4.6.1
   firebase_core: ^2.13.0
+  firebase_storage: ^11.2.1
   flutter:
     sdk: flutter
   gauge_indicator: ^0.3.3
   google_sign_in: ^6.1.1
+  image_picker: ^0.8.7+5
 
 dev_dependencies:
   flutter_lints: ^2.0.0

@@ -1,10 +1,10 @@
 import 'package:classcheckup/pages/dashboard.dart';
-import 'package:classcheckup/pages/subject.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/edit.dart';
+import 'pages/profile.dart';
 
 class IndexPage extends StatefulWidget {
   final String uid;
@@ -24,7 +24,7 @@ class _IndexPageState extends State<IndexPage> {
     _pages = [
       DashBoard(uid: widget.uid),
       EditPage(uid: widget.uid),
-      SubjectPage(value: 65, sub: 'Random')
+      ProfilePage(uid: widget.uid)
     ];
   }
 

@@ -10,13 +10,13 @@ import 'landing.dart';
 class ProfilePage extends StatefulWidget {
   final String uid;
 
-  ProfilePage({required this.uid});
+  const ProfilePage({super.key, required this.uid});
 
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  ProfilePageState createState() => ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class ProfilePageState extends State<ProfilePage> {
   late TextEditingController _nameController;
   late File _pickedImage;
   bool _isEditMode = false;
@@ -104,7 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
     await FirebaseAuth.instance.signOut().then(
           (value) => Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => LandingPage()),
+            MaterialPageRoute(builder: (context) => const LandingPage()),
             (Route<dynamic> route) => false,
           ),
         );

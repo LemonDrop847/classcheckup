@@ -7,17 +7,17 @@ class EditPage extends StatefulWidget {
   const EditPage({Key? key, required this.uid}) : super(key: key);
 
   @override
-  _EditPageState createState() => _EditPageState();
+  EditPageState createState() => EditPageState();
 }
 
-class _EditPageState extends State<EditPage> {
+class EditPageState extends State<EditPage> {
   final GlobalKey<FormState> _existingSubjectsFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _newSubjectFormKey = GlobalKey<FormState>();
 
   List<Map<String, dynamic>> _subjectsData = [];
-  TextEditingController _newSubnameController = TextEditingController();
-  TextEditingController _newTotalController = TextEditingController();
-  TextEditingController _newCurrentController = TextEditingController();
+  final TextEditingController _newSubnameController = TextEditingController();
+  final TextEditingController _newTotalController = TextEditingController();
+  final TextEditingController _newCurrentController = TextEditingController();
 
   @override
   void initState() {

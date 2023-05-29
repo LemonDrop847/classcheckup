@@ -10,10 +10,10 @@ class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
 
   @override
-  _LandingPageState createState() => _LandingPageState();
+  LandingPageState createState() => LandingPageState();
 }
 
-class _LandingPageState extends State<LandingPage> {
+class LandingPageState extends State<LandingPage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   void _handleSignIn(BuildContext context) {
@@ -60,9 +60,11 @@ class _LandingPageState extends State<LandingPage> {
           );
         }
       }
-    }).catchError((error) {
-      print('Sign-in error: $error');
-    });
+    }).catchError(
+      (error) {
+        print('Sign-in error: $error');
+      },
+    );
   }
 
   int currentPage = 0;

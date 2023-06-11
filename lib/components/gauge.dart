@@ -8,6 +8,8 @@ class Gauge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color gaugeColor =
+        value < 65 ? Colors.red : Color.fromARGB(255, 5, 226, 123);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(200),
@@ -20,8 +22,8 @@ class Gauge extends StatelessWidget {
         value: value,
         duration: const Duration(milliseconds: 2000),
         curve: Curves.elasticOut,
-        progressBar: const GaugeRoundedProgressBar(
-          color: Color.fromARGB(255, 5, 226, 123),
+        progressBar: GaugeRoundedProgressBar(
+          color: gaugeColor,
         ),
         axis: const GaugeAxis(
           degrees: 360,

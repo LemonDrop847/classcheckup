@@ -6,15 +6,19 @@ import '../pages/subject.dart';
 class SubCard extends StatelessWidget {
   final String subname;
   final String id;
-  final double attend;
+  final int curr, total;
+  final int index;
   const SubCard(
       {super.key,
       required this.subname,
       required this.id,
-      required this.attend});
+      required this.index,
+      required this.curr,
+      required this.total});
 
   @override
   Widget build(BuildContext context) {
+    double attend = curr == 0 ? 0 : curr / total * 100;
     return SizedBox(
       height: 100,
       width: 100,
@@ -26,7 +30,11 @@ class SubCard extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => SubjectPage(
                       value: attend,
+                      curr: curr,
+                      total: total,
                       sub: subname,
+                      index: index,
+                      uid: id,
                     )),
           ),
           child: Column(

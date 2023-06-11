@@ -39,13 +39,13 @@ class DashBoard extends StatelessWidget {
                 String subname = subject['subname'] as String;
 
                 String id = uid;
-                double attend = subject['curr'] == 0
-                    ? 0
-                    : subject['curr'] / subject['total'] * 100;
+
                 return SubCard(
                   subname: subname,
                   id: id,
-                  attend: attend,
+                  index: index,
+                  curr: subject['curr'],
+                  total: subject['total'],
                 );
               },
             );

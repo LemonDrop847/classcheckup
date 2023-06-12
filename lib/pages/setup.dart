@@ -47,13 +47,13 @@ class _SetupUserState extends State<SetupUser> {
         'subjects': subjectsData,
       }).then((value) {
         print('Subjects submitted successfully!');
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => IndexPage(
-                    uid: widget.uid,
-                  )),
-        );
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) => IndexPage(
+                      uid: widget.uid,
+                    )),
+            (Route<dynamic> route) => false);
       }).catchError((error) {
         print('Error submitting subjects: $error');
       });

@@ -56,6 +56,8 @@ class _SubjectPageState extends State<SubjectPage>
     super.dispose();
   }
 
+  bool missed = false;
+
   Future<void> _fetchSubjectsData() async {
     try {
       final DocumentSnapshot<Map<String, dynamic>> snapshot =
@@ -118,8 +120,28 @@ class _SubjectPageState extends State<SubjectPage>
   Future<void> increase() async {
     try {
       setState(() {
+        missed = false;
         tot++;
         now++;
+      });
+
+      final List<Map<String, dynamic>> updatedSubjectsData =
+          List.from(_subjectsData);
+
+      updatedSubjectsData[widget.index]['total'] = tot;
+      updatedSubjectsData[widget.index]['curr'] = now;
+
+      await _updateSubjectsData(updatedSubjectsData);
+    } catch (err) {
+      print(err);
+    }
+  }
+
+  Future<void> decrease() async {
+    try {
+      setState(() {
+        missed = true;
+        tot++;
       });
 
       final List<Map<String, dynamic>> updatedSubjectsData =
@@ -158,7 +180,10 @@ class _SubjectPageState extends State<SubjectPage>
                   );
                 },
                 child: _showTick
-                    ? TickAnimation(controller: _controller)
+                    ? TickAnimation(
+                        controller: _controller,
+                        missed: missed,
+                      )
                     : SizedBox(
                         height: 300,
                         child: Gauge(value: widget.value),
@@ -180,6 +205,18 @@ class _SubjectPageState extends State<SubjectPage>
                 fontSize: 20,
               ),
             ),
+            ElevatedButton(
+              onPressed: increase,
+              child: Text(
+                "Attended Class",
+              ),
+            ),
+            ElevatedButton(
+              onPressed: decrease,
+              child: Text(
+                "Missed Class",
+              ),
+            ),
           ],
         ),
       ),
@@ -189,8 +226,11 @@ class _SubjectPageState extends State<SubjectPage>
 
 class TickAnimation extends StatefulWidget {
   final AnimationController controller;
+  final bool missed;
 
-  const TickAnimation({Key? key, required this.controller}) : super(key: key);
+  const TickAnimation(
+      {Key? key, required this.controller, required this.missed})
+      : super(key: key);
 
   @override
   _TickAnimationState createState() => _TickAnimationState();
@@ -199,9 +239,10 @@ class TickAnimation extends StatefulWidget {
 class _TickAnimationState extends State<TickAnimation>
     with SingleTickerProviderStateMixin {
   late Animation<double> _animation;
-
+  bool tick = true;
   @override
   void initState() {
+    tick = widget.missed;
     super.initState();
     _animation = Tween<double>(begin: 0, end: 1).animate(widget.controller);
     widget.controller.forward();
@@ -223,9 +264,9 @@ class _TickAnimationState extends State<TickAnimation>
   Widget build(BuildContext context) {
     return ScaleTransition(
       scale: _animation,
-      child: const Icon(
-        Icons.check_circle,
-        color: Colors.green,
+      child: Icon(
+        tick ? Icons.close_outlined : Icons.check_circle,
+        color: tick ? Colors.red : Colors.green,
         size: 300,
       ),
     );

@@ -16,7 +16,7 @@ class _SetupUserState extends State<SetupUser> {
   TextEditingController subjectController = TextEditingController();
 
   void addSubject() {
-    String newSubject = subjectController.text;
+    String newSubject = subjectController.text.toUpperCase();
     if (newSubject.isNotEmpty) {
       setState(() {
         subjects.add(newSubject);

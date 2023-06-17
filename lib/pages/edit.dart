@@ -97,7 +97,7 @@ class EditPageState extends State<EditPage> {
   void _addNewSubject() {
     if (_newSubjectFormKey.currentState!.validate()) {
       final newSubject = {
-        'subname': _newSubnameController.text,
+        'subname': _newSubnameController.text.toUpperCase(),
         'curr': int.tryParse(_newCurrentController.text) ?? 0,
         'total': int.tryParse(_newTotalController.text) ?? 0,
       };
@@ -133,6 +133,35 @@ class EditPageState extends State<EditPage> {
     }
   }
 
+  void _deleteSubject(Map<String, dynamic> subjectData) {
+    setState(() {
+      _subjectsData.remove(subjectData);
+    });
+
+    _deleteSubjectFromDatabase(subjectData);
+  }
+
+  Future<void> _deleteSubjectFromDatabase(
+      Map<String, dynamic> subjectData) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('subdata')
+          .doc(widget.uid)
+          .update({
+        'subjects': FieldValue.arrayRemove([subjectData])
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Subject deleted successfully')),
+      );
+    } catch (e) {
+      print('Error deleting subject: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error deleting subject')),
+      );
+    }
+  }
+
   @override
   void dispose() {
     _newSubnameController.dispose();
@@ -158,28 +187,27 @@ class EditPageState extends State<EditPage> {
                       DataColumn(label: Text('Subject')),
                       DataColumn(label: Text('Current')),
                       DataColumn(label: Text('Total')),
+                      DataColumn(label: Text('Delete')),
                     ],
                     rows: _subjectsData.map<DataRow>((subjectData) {
                       final TextEditingController subnameController =
                           TextEditingController(
                         text: subjectData['subname'].toString(),
                       );
-
                       final TextEditingController totalController =
                           TextEditingController(
                         text: subjectData['total'].toString(),
                       );
-
                       final TextEditingController currentController =
                           TextEditingController(
                         text: subjectData['curr'].toString(),
                       );
-
                       return DataRow(
                         cells: [
                           DataCell(
                             TextFormField(
                               controller: subnameController,
+                              readOnly: true,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter a subject name';
@@ -218,6 +246,17 @@ class EditPageState extends State<EditPage> {
                               },
                               onSaved: (value) {
                                 subjectData['total'] = int.parse(value!);
+                              },
+                            ),
+                          ),
+                          DataCell(
+                            IconButton(
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                              onPressed: () {
+                                _deleteSubject(subjectData);
                               },
                             ),
                           ),

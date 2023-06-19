@@ -1,3 +1,4 @@
+import 'package:classcheckup/components/theme.dart';
 import 'package:classcheckup/pages/dashboard.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
@@ -33,6 +34,7 @@ class _IndexPageState extends State<IndexPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
+        actions: [ThemeToggleButton()],
         title: Text(_selectedIndex == 0
             ? 'Your Classes'
             : _selectedIndex == 1
@@ -41,7 +43,9 @@ class _IndexPageState extends State<IndexPage> {
       ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.white,
+        buttonBackgroundColor: Theme.of(context).textTheme.titleLarge!.color,
+        backgroundColor: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.onInverseSurface,
         items: const [
           CurvedNavigationBarItem(
             child: Icon(
@@ -79,7 +83,6 @@ class _IndexPageState extends State<IndexPage> {
             _selectedIndex = index;
           });
         },
-        color: Colors.black,
       ),
     );
   }

@@ -1,4 +1,4 @@
-import 'package:classcheckup/components/theme.dart';
+import 'package:classcheckup/components/switcher.dart';
 import 'package:classcheckup/pages/dashboard.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
@@ -34,7 +34,7 @@ class _IndexPageState extends State<IndexPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        actions: [ThemeToggleButton()],
+        actions: const [ThemeToggleButton()],
         title: Text(_selectedIndex == 0
             ? 'Your Classes'
             : _selectedIndex == 1
@@ -43,9 +43,10 @@ class _IndexPageState extends State<IndexPage> {
       ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: CurvedNavigationBar(
-        buttonBackgroundColor: Theme.of(context).textTheme.titleLarge!.color,
+        buttonBackgroundColor:
+            Theme.of(context).colorScheme.onSecondaryContainer,
         backgroundColor: Theme.of(context).colorScheme.background,
-        color: Theme.of(context).colorScheme.onInverseSurface,
+        color: Theme.of(context).colorScheme.onPrimaryContainer,
         items: const [
           CurvedNavigationBarItem(
             child: Icon(

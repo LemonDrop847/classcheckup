@@ -1,22 +1,32 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ThemeToggleButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.brightness_4),
-      onPressed: () {
-        bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
-        AppColors.saveThemePreference(!isDarkTheme).then((_) {
-          final scaffoldMessenger = ScaffoldMessenger.of(context);
-          scaffoldMessenger.showSnackBar(SnackBar(
-            content: Text(isDarkTheme
-                ? 'Switched to Light Theme'
-                : 'Switched to Dark Theme'),
-          ));
-        });
-      },
-    );
+class AppColors {
+  static ThemeData lightTheme = ThemeData(
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: const Color(0xFF080808),
+      brightness: Brightness.light,
+    ),
+    useMaterial3: true,
+  );
+
+  static ThemeData darkTheme = ThemeData(
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: const Color(0xFF080808),
+      brightness: Brightness.dark,
+    ),
+    useMaterial3: true,
+  );
+
+  static bool isDarkTheme = false;
+
+  static Future<void> loadThemeFromPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    isDarkTheme = prefs.getBool('isDarkTheme') ?? false;
+  }
+
+  static Future<void> saveThemePreference(bool isDarkTheme) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isDarkTheme', isDarkTheme);
   }
 }

@@ -2,17 +2,22 @@ import 'package:classcheckup/components/subcard.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class DashBoard extends StatelessWidget {
+class DashBoard extends StatefulWidget {
   final String uid;
-  const DashBoard({Key? key, required this.uid}) : super(key: key);
+  const DashBoard({super.key, required this.uid});
 
+  @override
+  State<DashBoard> createState() => _DashBoardState();
+}
+
+class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
     return Center(
       child: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance
             .collection('subdata')
-            .doc(uid)
+            .doc(widget.uid)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
@@ -38,7 +43,7 @@ class DashBoard extends StatelessWidget {
                 var subject = subjectsData[index];
                 String subname = subject['subname'] as String;
 
-                String id = uid;
+                String id = widget.uid;
 
                 return SubCard(
                   subname: subname,

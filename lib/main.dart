@@ -35,9 +35,8 @@ class _MyAppState extends State<MyApp> {
       builder: (BuildContext context) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: theme_mgr.AppColors.isDarkTheme
-              ? theme_mgr.AppColors.darkTheme
-              : theme_mgr.AppColors.lightTheme,
+          theme: theme_mgr.AppColors.lightTheme,
+          darkTheme: theme_mgr.AppColors.darkTheme,
           home: FutureBuilder(
             future: _checkIfUserSignedIn(),
             builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {

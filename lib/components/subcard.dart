@@ -1,6 +1,5 @@
 import 'package:classcheckup/components/gauge.dart';
 import 'package:flutter/material.dart';
-
 import '../pages/subject.dart';
 
 class SubCard extends StatelessWidget {
@@ -45,8 +44,9 @@ class SubCard extends StatelessWidget {
               Text(
                 subname,
                 style: TextStyle(
-                  fontSize: 30,
-                  // fontFamily: 'Fallscoming',
+                  fontSize: 35,
+                  fontFamily: 'Architect',
+                  fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                 ),
               ),

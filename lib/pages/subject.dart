@@ -160,7 +160,13 @@ class _SubjectPageState extends State<SubjectPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.sub),
+        title: Text(
+          widget.sub,
+          style: const TextStyle(
+            fontFamily: 'Avenir',
+            fontSize: 27,
+          ),
+        ),
       ),
       body: Center(
         child: Column(
@@ -185,7 +191,7 @@ class _SubjectPageState extends State<SubjectPage>
                         missed: missed,
                       )
                     : SizedBox(
-                        height: 300,
+                        height: 250,
                         child: Gauge(value: widget.value),
                       ),
               ),
@@ -267,7 +273,7 @@ class _TickAnimationState extends State<TickAnimation>
       child: Icon(
         tick ? Icons.close_outlined : Icons.check_circle,
         color: tick ? Colors.red : Colors.green,
-        size: 300,
+        size: 250,
       ),
     );
   }

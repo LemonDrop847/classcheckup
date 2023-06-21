@@ -1,4 +1,3 @@
-import 'package:classcheckup/components/switcher.dart';
 import 'package:classcheckup/pages/dashboard.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
@@ -29,24 +28,34 @@ class _IndexPageState extends State<IndexPage> {
     ];
   }
 
+  static const TextStyle style = TextStyle(
+    fontFamily: 'Architect',
+    fontSize: 18,
+    color: Colors.white,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        actions: const [ThemeToggleButton()],
-        title: Text(_selectedIndex == 0
-            ? 'Your Classes'
-            : _selectedIndex == 1
-                ? 'Edit Classes'
-                : 'Profile'),
+        title: Text(
+          _selectedIndex == 0
+              ? 'Your Classes'
+              : _selectedIndex == 1
+                  ? 'Edit Classes'
+                  : 'Profile',
+          style: const TextStyle(
+            fontFamily: 'Avenir',
+            fontSize: 25,
+          ),
+        ),
       ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: CurvedNavigationBar(
-        buttonBackgroundColor:
-            Theme.of(context).colorScheme.onSecondaryContainer,
+        buttonBackgroundColor: Theme.of(context).colorScheme.inversePrimary,
         backgroundColor: Theme.of(context).colorScheme.background,
-        color: Theme.of(context).colorScheme.onPrimaryContainer,
+        color: Theme.of(context).colorScheme.primaryContainer,
         items: const [
           CurvedNavigationBarItem(
             child: Icon(
@@ -54,9 +63,7 @@ class _IndexPageState extends State<IndexPage> {
               color: Colors.white,
             ),
             label: 'Home',
-            labelStyle: TextStyle(
-              color: Colors.white,
-            ),
+            labelStyle: style,
           ),
           CurvedNavigationBarItem(
             child: Icon(
@@ -64,9 +71,7 @@ class _IndexPageState extends State<IndexPage> {
               color: Colors.white,
             ),
             label: 'Edit',
-            labelStyle: TextStyle(
-              color: Colors.white,
-            ),
+            labelStyle: style,
           ),
           CurvedNavigationBarItem(
             child: Icon(
@@ -74,9 +79,7 @@ class _IndexPageState extends State<IndexPage> {
               color: Colors.white,
             ),
             label: 'Profile',
-            labelStyle: TextStyle(
-              color: Colors.white,
-            ),
+            labelStyle: style,
           ),
         ],
         onTap: (index) {

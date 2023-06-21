@@ -137,7 +137,11 @@ class LandingPageState extends State<LandingPage> {
                           const SizedBox(width: 10),
                           const Text(
                             'Sign in with Google',
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'SourceSans',
+                              color: Colors.black,
+                            ),
                           ),
                         ],
                       ),
@@ -159,8 +163,11 @@ class LandingPageState extends State<LandingPage> {
       width: (currentPage == pageNo) ? 20 : 10,
       margin: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(5)),
-          color: (currentPage == pageNo) ? Colors.black : Colors.grey),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(5),
+        ),
+        color: (currentPage == pageNo) ? Colors.white : Colors.grey,
+      ),
     );
   }
 
@@ -176,8 +183,10 @@ class LandingPageState extends State<LandingPage> {
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.all(50),
           decoration: BoxDecoration(
-              image:
-                  DecorationImage(image: AssetImage('assets/images/$img.png'))),
+            image: DecorationImage(
+              image: AssetImage('assets/images/$img.png'),
+            ),
+          ),
         ),
         const SizedBox(
           height: 50,
@@ -186,14 +195,22 @@ class LandingPageState extends State<LandingPage> {
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Text(
             title,
-            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+            style: const TextStyle(
+              fontSize: 30,
+              fontFamily: 'Avenir',
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
         Container(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
           child: const Text(
             "One Stop Location to manage all your classes, add your subjects and manage all your classes' attendance here!",
-            style: TextStyle(fontSize: 16, color: Colors.grey),
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey,
+              fontFamily: 'ProductSans',
+            ),
             textAlign: TextAlign.center,
           ),
         )
@@ -202,7 +219,8 @@ class LandingPageState extends State<LandingPage> {
   }
 
   setCurrentPage(int value) {
-    currentPage = value;
-    setState(() {});
+    setState(() {
+      currentPage = value;
+    });
   }
 }

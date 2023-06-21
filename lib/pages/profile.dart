@@ -145,10 +145,19 @@ class ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
+            const SizedBox(
+              height: 20,
+            ),
+            FloatingActionButton.extended(
               onPressed: _signOut,
-              child: const Text('Sign Out'),
+              icon: const Icon(Icons.exit_to_app),
+              label: const Text(
+                'Sign Out',
+                style: TextStyle(
+                  fontFamily: 'Architect',
+                  fontSize: 18,
+                ),
+              ),
             ),
           ],
         ),

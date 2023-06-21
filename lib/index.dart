@@ -29,9 +29,9 @@ class _IndexPageState extends State<IndexPage> {
   }
 
   static const TextStyle style = TextStyle(
-    fontFamily: 'Architect',
-    fontSize: 18,
-    color: Colors.white,
+    fontFamily: 'ProductSans',
+    fontSize: 16,
+    // color: Colors.white,
   );
 
   @override
@@ -53,6 +53,7 @@ class _IndexPageState extends State<IndexPage> {
       ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: CurvedNavigationBar(
+        height: 60,
         buttonBackgroundColor: Theme.of(context).colorScheme.inversePrimary,
         backgroundColor: Theme.of(context).colorScheme.background,
         color: Theme.of(context).colorScheme.primaryContainer,

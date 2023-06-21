@@ -170,6 +170,15 @@ class EditPageState extends State<EditPage> {
     super.dispose();
   }
 
+  static const TextStyle headstyle = TextStyle(
+    fontFamily: 'ProductSans',
+    color: Colors.white,
+    fontSize: 17,
+  );
+  static const TextStyle bodystyle = TextStyle(
+    fontFamily: 'SourceSans',
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -184,10 +193,26 @@ class EditPageState extends State<EditPage> {
                 children: [
                   DataTable(
                     columns: const [
-                      DataColumn(label: Text('Subject')),
-                      DataColumn(label: Text('Current')),
-                      DataColumn(label: Text('Total')),
-                      DataColumn(label: Text('Delete')),
+                      DataColumn(
+                          label: Text(
+                        'Subject',
+                        style: headstyle,
+                      )),
+                      DataColumn(
+                          label: Text(
+                        'Current',
+                        style: headstyle,
+                      )),
+                      DataColumn(
+                          label: Text(
+                        'Total',
+                        style: headstyle,
+                      )),
+                      DataColumn(
+                          label: Text(
+                        'Delete',
+                        style: headstyle,
+                      )),
                     ],
                     rows: _subjectsData.map<DataRow>((subjectData) {
                       final TextEditingController subnameController =
@@ -214,6 +239,7 @@ class EditPageState extends State<EditPage> {
                                 }
                                 return null;
                               },
+                              style: bodystyle,
                               onSaved: (value) {
                                 subjectData['subname'] = value!;
                               },
@@ -223,6 +249,7 @@ class EditPageState extends State<EditPage> {
                             TextFormField(
                               controller: currentController,
                               keyboardType: TextInputType.number,
+                              style: bodystyle,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter a value';
@@ -238,6 +265,7 @@ class EditPageState extends State<EditPage> {
                             TextFormField(
                               controller: totalController,
                               keyboardType: TextInputType.number,
+                              style: bodystyle,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter a value';
@@ -270,7 +298,11 @@ class EditPageState extends State<EditPage> {
           ),
           const Text(
             'Add New Subject',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Raleway',
+            ),
           ),
           Expanded(
             flex: 2,
@@ -280,8 +312,10 @@ class EditPageState extends State<EditPage> {
                 children: [
                   TextFormField(
                     controller: _newSubnameController,
-                    decoration:
-                        const InputDecoration(labelText: 'Subject Name'),
+                    decoration: const InputDecoration(
+                      labelText: 'Subject Name',
+                      labelStyle: bodystyle,
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a subject name';
@@ -289,9 +323,18 @@ class EditPageState extends State<EditPage> {
                       return null;
                     },
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   ElevatedButton(
                     onPressed: _addNewSubject,
-                    child: const Text('Add Subject'),
+                    child: const Text(
+                      'Add Subject',
+                      style: TextStyle(
+                        fontFamily: 'Architect',
+                        fontSize: 15,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -301,7 +344,13 @@ class EditPageState extends State<EditPage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _saveExistingSubjectsData,
-        label: const Text('Update Data'),
+        label: const Text(
+          'Update Data',
+          style: TextStyle(
+            fontFamily: 'Architect',
+            fontSize: 16,
+          ),
+        ),
         icon: const Icon(Icons.save),
       ),
     );

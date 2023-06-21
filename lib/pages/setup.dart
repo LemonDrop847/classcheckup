@@ -64,7 +64,13 @@ class _SetupUserState extends State<SetupUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Setup User'),
+        title: const Text(
+          'Setup User',
+          style: TextStyle(
+            fontSize: 25,
+            fontFamily: 'Avenir',
+          ),
+        ),
       ),
       body: Column(
         children: <Widget>[
@@ -77,6 +83,9 @@ class _SetupUserState extends State<SetupUser> {
                     controller: subjectController,
                     decoration: const InputDecoration(
                       hintText: 'Enter subject name',
+                      hintStyle: TextStyle(
+                        fontFamily: 'SourceSans',
+                      ),
                     ),
                   ),
                 ),
@@ -93,7 +102,12 @@ class _SetupUserState extends State<SetupUser> {
               itemBuilder: (context, index) {
                 final subject = subjects[index];
                 return ListTile(
-                  title: Text(subject),
+                  title: Text(
+                    subject,
+                    style: const TextStyle(
+                      fontFamily: 'ProductSans',
+                    ),
+                  ),
                   trailing: IconButton(
                     icon: const Icon(Icons.remove),
                     onPressed: () => removeSubject(subject),
@@ -104,9 +118,16 @@ class _SetupUserState extends State<SetupUser> {
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
+            child: FloatingActionButton.extended(
               onPressed: submitSubjects,
-              child: const Text('Submit'),
+              icon: const Icon(Icons.save_alt),
+              label: const Text(
+                'Submit',
+                style: TextStyle(
+                  fontFamily: 'Architect',
+                  fontSize: 18,
+                ),
+              ),
             ),
           ),
         ],

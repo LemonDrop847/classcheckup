@@ -82,9 +82,9 @@ flutter:
     - family: Avenir
       fonts:
         - asset: assets/fonts/Avenir-Medium.ttf
-    - family: Merriweather
+    - family: Satisfy
       fonts:
-        - asset: assets/fonts/Merriweather-Regular.ttf
+        - asset: assets/fonts/Satisfy-Regular.ttf
     - family: Fallscoming
       fonts:
         - asset: assets/fonts/Fallscoming.ttf
@@ -97,6 +97,9 @@ flutter:
     - family: SourceSans
       fonts:
         - asset: assets/fonts/SourceSansPro-Regular.ttf
+    - family: ProductSans
+      fonts:
+        - asset: assets/fonts/ProductSans-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

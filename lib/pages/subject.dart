@@ -202,25 +202,41 @@ class _SubjectPageState extends State<SubjectPage>
             Text(
               widget.sub,
               style: const TextStyle(
-                fontSize: 40,
+                fontSize: 45,
+                fontFamily: 'Itim',
+                decoration: TextDecoration.underline,
               ),
             ),
             Text(
               checkLow() ? 'You are good!' : 'Attend more classes!',
               style: const TextStyle(
-                fontSize: 20,
+                fontFamily: 'SourceSans',
+                fontSize: 30,
               ),
             ),
-            ElevatedButton(
+            FloatingActionButton.extended(
               onPressed: increase,
-              child: Text(
+              icon: const Icon(Icons.check),
+              label: const Text(
                 "Attended Class",
+                style: TextStyle(
+                  fontFamily: 'Architect',
+                  fontSize: 18,
+                ),
               ),
             ),
-            ElevatedButton(
+            const SizedBox(
+              height: 10,
+            ),
+            FloatingActionButton.extended(
               onPressed: decrease,
-              child: Text(
+              icon: const Icon(Icons.close),
+              label: const Text(
                 "Missed Class",
+                style: TextStyle(
+                  fontFamily: 'Architect',
+                  fontSize: 18,
+                ),
               ),
             ),
           ],

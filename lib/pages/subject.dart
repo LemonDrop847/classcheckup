@@ -201,8 +201,9 @@ class _SubjectPageState extends State<SubjectPage>
             ),
             Text(
               widget.sub,
+              textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 45,
+                fontSize: 40,
                 fontFamily: 'Itim',
                 decoration: TextDecoration.underline,
               ),
@@ -213,6 +214,9 @@ class _SubjectPageState extends State<SubjectPage>
                 fontFamily: 'SourceSans',
                 fontSize: 30,
               ),
+            ),
+            const SizedBox(
+              height: 50,
             ),
             FloatingActionButton.extended(
               onPressed: increase,

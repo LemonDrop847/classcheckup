@@ -1,8 +1,9 @@
 import 'package:classcheckup/components/gauge.dart';
+import 'package:classcheckup/components/marquee.dart';
 import 'package:flutter/material.dart';
 import '../pages/subject.dart';
 
-class SubCard extends StatelessWidget {
+class SubCard extends StatefulWidget {
   final String subname;
   final String id;
   final int curr, total;
@@ -16,8 +17,14 @@ class SubCard extends StatelessWidget {
       required this.total});
 
   @override
+  State<SubCard> createState() => _SubCardState();
+}
+
+class _SubCardState extends State<SubCard> {
+  bool longPressed = false;
+  @override
   Widget build(BuildContext context) {
-    double attend = curr == 0 ? 0 : curr / total * 100;
+    double attend = widget.curr == 0 ? 0 : widget.curr / widget.total * 100;
     return SizedBox(
       height: 100,
       width: 100,
@@ -29,11 +36,11 @@ class SubCard extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => SubjectPage(
                       value: attend,
-                      curr: curr,
-                      total: total,
-                      sub: subname,
-                      index: index,
-                      uid: id,
+                      curr: widget.curr,
+                      total: widget.total,
+                      sub: widget.subname,
+                      index: widget.index,
+                      uid: widget.id,
                     )),
           ),
           child: Column(
@@ -41,14 +48,42 @@ class SubCard extends StatelessWidget {
               Expanded(
                 child: Gauge(value: attend),
               ),
-              Text(
-                subname,
-                style: TextStyle(
-                  fontSize: 35,
-                  fontFamily: 'Architect',
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
-                ),
+              GestureDetector(
+                onLongPress: () {
+                  setState(() {
+                    longPressed = !longPressed;
+                  });
+                },
+                child: longPressed
+                    ? MarqueeWidget(
+                        direction: Axis.horizontal,
+                        child: Text(
+                          widget.subname,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 35,
+                            fontFamily: 'Architect',
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
+                          ),
+                        ),
+                      )
+                    : Text(
+                        widget.subname,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 35,
+                          fontFamily: 'Architect',
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSecondaryContainer,
+                        ),
+                      ),
               ),
             ],
           ),

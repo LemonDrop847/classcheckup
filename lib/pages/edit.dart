@@ -192,12 +192,18 @@ class EditPageState extends State<EditPage> {
               child: ListView(
                 children: [
                   DataTable(
+                    columnSpacing: 10,
                     columns: const [
                       DataColumn(
-                          label: Text(
-                        'Subject',
-                        style: headstyle,
-                      )),
+                        label: SizedBox(
+                          width: 120,
+                          child: Text(
+                            'Subject',
+                            style: headstyle,
+                            overflow: TextOverflow.fade,
+                          ),
+                        ),
+                      ),
                       DataColumn(
                           label: Text(
                         'Current',
@@ -230,20 +236,30 @@ class EditPageState extends State<EditPage> {
                       return DataRow(
                         cells: [
                           DataCell(
-                            TextFormField(
-                              controller: subnameController,
-                              readOnly: true,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter a subject name';
-                                }
-                                return null;
-                              },
-                              style: bodystyle,
-                              onSaved: (value) {
-                                subjectData['subname'] = value!;
-                              },
+                            SizedBox(
+                              width: 120,
+                              child: Text(
+                                subnameController.text,
+                                style: bodystyle,
+                                overflow: TextOverflow.fade,
+                                maxLines: 1,
+                              ),
                             ),
+                            // TextFormField(
+                            //   controller: subnameController,
+                            //   readOnly: true,
+                            //   maxLines: 1,
+                            //   validator: (value) {
+                            //     if (value == null || value.isEmpty) {
+                            //       return 'Please enter a subject name';
+                            //     }
+                            //     return null;
+                            //   },
+                            //   style: bodystyle,
+                            //   onSaved: (value) {
+                            //     subjectData['subname'] = value!;
+                            //   },
+                            // ),
                           ),
                           DataCell(
                             TextFormField(

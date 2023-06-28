@@ -209,6 +209,7 @@ class _SubjectPageState extends State<SubjectPage>
               ),
             ),
             Text(
+              maxLines: 1,
               checkLow() ? 'You are good!' : 'Attend more classes!',
               style: const TextStyle(
                 fontFamily: 'SourceSans',

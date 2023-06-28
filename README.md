@@ -1,6 +1,12 @@
 # classcheckup
 
 An App to manage attendance in classes!
+Current Features-
+```
+- Adding Subjects
+- Editing Subjects List
+- Update Data
+```
 
 ## Download
 

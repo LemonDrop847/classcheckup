@@ -274,11 +274,14 @@ class _TickAnimationState extends State<TickAnimation>
     _animation = Tween<double>(begin: 0, end: 1).animate(widget.controller);
     widget.controller.forward();
 
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        widget.controller.reverse();
-      }
-    });
+    Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        if (mounted) {
+          widget.controller.reverse();
+        }
+      },
+    );
   }
 
   @override

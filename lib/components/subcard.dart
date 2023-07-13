@@ -74,7 +74,7 @@ class _SubCardState extends State<SubCard> {
                     : Text(
                         widget.subname,
                         maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                        overflow: TextOverflow.fade,
                         style: TextStyle(
                           fontSize: 35,
                           fontFamily: 'Architect',
